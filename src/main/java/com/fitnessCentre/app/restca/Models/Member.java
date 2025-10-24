@@ -40,7 +40,7 @@ public class Member {
 	
 	  @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL })
 	  @JoinColumn(name = "member_id", nullable = false)     // FK on PLANS
-	  private Set<Plan> plans = new HashSet<>(); 
+	  private Plan plan; 
 	  
 	  @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL })
 	  @JoinColumn(name = "member_id", nullable = false)     // FK on PAYMENTS
@@ -50,12 +50,12 @@ public class Member {
     	
     }
     
-    public Member(String name, int age, String address, String goal, Collection<Plan> plans, Collection<Payment> payments ) {
+    public Member(String name, int age, String address, String goal, Plan plan, Collection<Payment> payments ) {
     	this.name = name;
     	this.age = age;
     	this.address = address;
     	this.goal = goal;
-		if (plans != null) this.plans.addAll(plans);
+		this.plan = plan;
 		if (payments != null) this.payments.addAll(payments);
 
 
@@ -98,21 +98,21 @@ public class Member {
 	}
 
 	@XmlElement
-	public Set<Plan> getPlans() {
-		return plans;
-	}
-
-	public void setPlans(Set<Plan> plans) {
-		this.plans = plans;
-	}
-
-	@XmlElement
 	public Set<Payment> getPayments() {
 		return payments;
 	}
 
 	public void setPayments(Set<Payment> payments) {
 		this.payments = payments;
+	}
+
+	@XmlElement
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
     
 }
