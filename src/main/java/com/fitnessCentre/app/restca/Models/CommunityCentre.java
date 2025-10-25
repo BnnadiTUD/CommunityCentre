@@ -31,7 +31,7 @@ public class CommunityCentre {
 	private String address;
 	
 	  @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL })
-	  @JoinColumn(name = "centre_id", nullable = false)     // FK on MEMBERS
+	  @JoinColumn(name = "centre_id", nullable = true)     // FK on MEMBERS
 	  private Set<Member> members = new HashSet<>(); 
 	  
 	  public CommunityCentre() {

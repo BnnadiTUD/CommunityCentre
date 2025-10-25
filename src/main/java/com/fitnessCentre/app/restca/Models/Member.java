@@ -7,8 +7,8 @@ import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.persistence.Column;
@@ -38,8 +38,8 @@ public class Member {
 	@Column(name = "Fitness_Goal", nullable = true, length = 100)
 	private String goal;
 	
-	  @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL })
-	  @JoinColumn(name = "member_id", nullable = false)     // FK on PLANS
+	  @ManyToOne(fetch = FetchType.LAZY, optional = true)
+	  @JoinColumn(name = "plan_id", nullable = true)     // FK on PLANS
 	  private Plan plan; 
 	  
 	  @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL })
@@ -57,8 +57,6 @@ public class Member {
     	this.goal = goal;
 		this.plan = plan;
 		if (payments != null) this.payments.addAll(payments);
-
-
     }
 
     @XmlElement
